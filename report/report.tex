@@ -1,0 +1,216 @@
+\documentclass[%
+bachelor,    % тип документа
+%natbib,      % использовать пакет natbib для "сжатия" цитирований
+subf,        % использовать пакет subcaption для вложенной нумерации рисунков
+href,        % использовать пакет hyperref для создания гиперссылок
+colorlinks,  % цветные гиперссылки
+%fixint,     % включить прямые знаки интегралов
+]{disser}
+
+\usepackage[
+  a4paper, mag=1000,
+  left=2.5cm, right=1cm, top=2cm, bottom=2cm, headsep=0.7cm, footskip=1cm
+]{geometry}
+
+
+\usepackage[intlimits]{amsmath}
+\usepackage{amssymb,amsfonts}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{pgf}
+\usepackage[english,russian]{babel}
+\ifpdf\usepackage{epstopdf}\fi
+\usepackage[autostyle]{csquotes}
+
+% Шрифт Times в тексте как основной
+%\usepackage{tempora}
+% альтернативный пакет из дистрибутива TeX Live
+%\usepackage{cyrtimes}
+
+% Шрифт Times в формулах как основной
+%\usepackage[varg,cmbraces,cmintegrals]{newtxmath}
+% альтернативный пакет
+%\usepackage[subscriptcorrection,nofontinfo]{mtpro2}
+
+\usepackage[%
+  style=gost-numeric,
+  backend=biber,
+  language=auto,
+  hyperref=auto,
+  autolang=other,
+  sorting=none
+]{biblatex}
+
+\addbibresource{report.bib}
+
+% Плавающие рисунки "в оборку".
+\usepackage{wrapfig}
+
+% Номера страниц снизу и по центру
+%\pagestyle{footcenter}
+%\chapterpagestyle{footcenter}
+
+% Точка с запятой в качестве разделителя между номерами цитирований
+%\setcitestyle{semicolon}
+
+% Точка с запятой в качестве разделителя между номерами цитирований
+%\setcitestyle{semicolon}
+
+% plots fixes
+%\usepackage{graphicx}
+%\usepackage{epstopdf}
+%\usepackage{pgfplots}
+%\usepackage{tikz}
+%\usepgfplotslibrary{external} 
+%\usetikzlibrary{external}
+%\tikzexternalize
+
+% Использовать полужирное начертание для векторов
+\let\vec=\mathbf
+
+% Включать подсекции в оглавление
+\setcounter{tocdepth}{2}
+
+\graphicspath{{fig/}}
+
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+
+\usepackage{afterpage}
+\usepackage{amsthm}
+
+\begin{document}
+
+% Переопределение стандартных заголовков
+%\def\contentsname{Содержание}
+%\def\conclusionname{Выводы}
+%\def\bibname{Литература}
+
+%
+% Титульный лист на русском языке
+%
+
+\institution{Санкт-Петербургский государственный университет}
+
+
+\title{Курсовая работа}
+
+% TODO
+\topic{Сравнительный анализ систем загрузки больших данных}
+
+% Автор
+\author{Мамаев Владислав Викторович}
+% Группа
+\group{323}
+% Номер специальности
+\coursenum{010400 (01.03.02)}
+% Название специальности
+\course{Прикладная математика и информатика}
+
+% Научный руководитель
+
+\sa      {Благов Михаил Валерьевич}
+% TODO
+\sastatus{к.~ф.-м.~н., }
+% Город и год
+\city{Санкт-Петербург}
+\date{\number\year}
+
+\maketitle
+
+%%
+%% Titlepage in English
+%%
+%
+%\institution{Name of Organization}
+%
+%% Approved by
+%\apname{Professor S.\,S.~Sidorov}
+%
+%\title{Bachelor's Thesis}
+%
+%% Topic
+%\topic{Dummy Title}
+%
+%% Author
+%\author{Author's Name} % Full Name
+%\course{Physics} % Specialization
+%
+%\group{} % Study Group
+%
+%% Scientific Advisor
+%\sa       {I.\,I.~Ivanov}
+%\sastatus {Professor}
+%
+%% Reviewer
+%\rev      {P.\,P.~Petrov}
+%\revstatus{Associate Professor}
+%
+%% Consultant
+%\con{}
+%\conspec{}
+%\constatus{}
+%
+%% City & Year
+%\city{Saint Petersburg}
+%\date{\number\year}
+%
+%\maketitle[en]
+
+% Содержание
+\tableofcontents
+
+
+\section{Введение}
+%Что такое OLTP и OLAP? Для чего нужны?
+  
+Базы данных используются повсеместно, при этом системы, для которых они предназначены, можно разделить на 2 класса:
+\begin{itemize}
+\item Online Transaction Processing (OLTP) -- системы обработки транзакций в реальном времени. Такие системы используются для операционной деятельности предприятий.
+\item Online Analytical Processing (OLAP) -- системы аналитической обработки в реальном времени. К такими системам относятся системы поддержки принятия решений, инструменты business intelligence, системы анализа данных.
+\end{itemize}
+
+% Почему их следует разделять? 
+OLAP системы содержат информацию из OTLP систем, при обычно OLAP системы обычно функционирует независимо от OLTP систем по следующим причинам: \cite{oltp_olap}
+\begin{itemize}
+	\item Реляционная схема данных, обычно используемая в OLTP системах, не эффективна для OLAP нагрузки.
+	\item OLAP нагрузка на OLTP систему может вызвать проблемы с производительностью транзакций.
+	\item С увеличением размера хранимых данных, возникают ограничения на используемые технологии и существенно увеличивается стоимость хранения данных в системах не предназначенных только для OLAP.
+	\item Необходимость доступа к данным из разных OLAP систем и возможности ограничения доступа к данным
+\end{itemize}
+
+% Какие проблемы при интеграции?
+Традиционно, данные попадают в OLAP систему из OLTP системы при помощи Extraction-Transformation-Loading (ETL) программ,
+запускаемых с некоторой периодичностью. ETL процессы могут занимать достаточно много времени, и это создает задержку появления данных в OLAP системе. 
+
+Для того чтобы уменьшить задержку можно вместо переодичных ETL процессов использовать потоковую обработку.
+Подобная архитектура интеграции данных описана в \cite{streaming_integration} и представленна на рисунке TODO.
+Каждое изменение данных в OLTP системе записывается в очередь сообщений, а некоторая программа непрерывно читает сообщения и обновляет данные в аналитическом хранилище.
+Использование непрерывных обновлений уменьшает задержку, но требует специальных инструментов для обеспечения целостности данных --- традицонно используемые хранилища для большого объема данных, такие как Hadoop, работают по принципу write-once и не поддерживают обновлений. 
+
+В данной работе будет проведено сравнение таких инструментов: Apache Hudi, Delta Lake, Apache Iceberg.
+Сравнение будет произведино по следующим пунктам:
+\begin{itemize}
+	\item Время задержки доставки данных.
+	\item Пропускная способность.
+	\item Удобство доступа к данным --- наличие интеграций с другими инструментами для работы с большими данными и совместимость.
+	\item Безопасность.
+\end{itemize}
+\section{Основная часть}
+
+\cite{test_data}
+
+\subsection{Основная часть}
+
+
+
+
+% Список литературы
+\printbibliography[heading=bibintoc]
+
+% Приложения
+\appendix
+
+
+\end{document}
