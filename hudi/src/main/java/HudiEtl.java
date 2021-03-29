@@ -4,11 +4,9 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
-import java.io.IOException;
-
 import static org.apache.hudi.QuickstartUtils.getQuickstartWriteConfigs;
 import static org.apache.spark.sql.SaveMode.Overwrite;
-//8m
+
 public class HudiEtl {
     static String BASE_PATH = "hdfs://localhost:9000/";
     static String HUDI_PATH = BASE_PATH + "hudi";

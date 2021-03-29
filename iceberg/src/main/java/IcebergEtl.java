@@ -9,8 +9,6 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
-import java.io.IOException;
-//1.5m
 public class IcebergEtl {
     static String BASE_PATH = "hdfs://localhost:9000/";
     static String TABLE_NAME = "iceberg-events";

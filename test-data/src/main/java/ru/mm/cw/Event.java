@@ -9,9 +9,11 @@ public class Event {
     private String sensorId;
     private String eventDescription;
     private Long timestamp;
+
     public String getUuid() {
         return uuid.toString();
     }
+
     public String getSensorId() {
         return sensorId;
     }

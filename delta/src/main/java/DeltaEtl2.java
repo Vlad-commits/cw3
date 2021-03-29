@@ -1,8 +1,11 @@
 import io.delta.tables.DeltaTable;
-import org.apache.spark.sql.*;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SparkSession;
+import org.apache.spark.sql.functions;
 
 import java.util.HashMap;
-//47:32
+
 public class DeltaEtl2 {
     static String BASE_PATH = "hdfs://localhost:9000/";
     static String PATH = BASE_PATH + "delta-events";
@@ -17,7 +20,7 @@ public class DeltaEtl2 {
             .getOrCreate();
 
         Dataset<Row> data = spark.read()
-            .option("header",true)
+            .option("header", true)
             .csv(CSV_PATH);
         data.show();
 

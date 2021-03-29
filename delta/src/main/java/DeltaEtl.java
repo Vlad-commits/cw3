@@ -2,7 +2,7 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SaveMode;
 import org.apache.spark.sql.SparkSession;
-//40s
+
 public class DeltaEtl {
     static String BASE_PATH = "hdfs://localhost:9000/";
     static String PATH = BASE_PATH + "delta-events";
@@ -17,7 +17,7 @@ public class DeltaEtl {
             .getOrCreate();
 
         Dataset<Row> data = spark.read()
-            .option("header",true)
+            .option("header", true)
             .csv(CSV_PATH);
         data.show();
 
