@@ -7,6 +7,7 @@ build
 /report/*.pdth
 /report/*.bbl
 /report/*.aux
-/report/*.bfc
+/report/*.bcf
 /report/*.blg
+/report/*.gz
 /report/*.run.xml
