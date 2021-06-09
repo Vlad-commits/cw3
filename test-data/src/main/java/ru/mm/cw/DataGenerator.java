@@ -1,6 +1,7 @@
 package ru.mm.cw;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -17,6 +18,12 @@ public class DataGenerator {
             Event event = generateEvent();
             consumer.accept(event);
         }
+    }
+
+    public static List<Event> generateChunk(int sensorsCount, int chunkSize) {
+        List<Event> eventList = new ArrayList<>();
+        DataGenerator.generateEvents(chunkSize, sensorsCount, eventList::add);
+        return eventList;
     }
 
     private static List<String> generateSensorIds(int sensorCount) {

@@ -1,8 +1,7 @@
+package scratch;
+
 import io.delta.tables.DeltaTable;
-import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Row;
-import org.apache.spark.sql.SparkSession;
-import org.apache.spark.sql.functions;
+import org.apache.spark.sql.*;
 
 import java.util.HashMap;
 
@@ -10,13 +9,15 @@ public class DeltaEtl2 {
     static String BASE_PATH = "hdfs://localhost:9000/";
     static String PATH = BASE_PATH + "delta-events";
 
-    static String CSV_PATH = BASE_PATH + "events.csv";
+    static String CSV_PATH = BASE_PATH + "events_100000_10.csv";
 
 
     public static void main(String[] args) {
         SparkSession spark = SparkSession.builder()
             .appName("Delta Lake ETL")
             .config("spark.master", "local")
+            .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension")
+            .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")
             .getOrCreate();
 
         Dataset<Row> data = spark.read()
@@ -36,7 +37,7 @@ public class DeltaEtl2 {
                 "oldData.uuid = newData.uuid")
             .whenMatched()
             .update(
-                new HashMap<>() {{
+                new HashMap<String, Column>() {{
                     put("uuid", functions.col("newData.uuid"));
                     put("sensorId", functions.col("newData.sensorId"));
                     put("eventDescription", functions.col("newData.eventDescription"));
@@ -44,7 +45,7 @@ public class DeltaEtl2 {
                 }})
             .whenNotMatched()
             .insert(
-                new HashMap<>() {{
+                new HashMap<String, Column>() {{
                     put("uuid", functions.col("newData.uuid"));
                     put("sensorId", functions.col("newData.sensorId"));
                     put("eventDescription", functions.col("newData.eventDescription"));

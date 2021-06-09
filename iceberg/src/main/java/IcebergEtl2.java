@@ -9,7 +9,7 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
-public class IcebergEtl {
+public class IcebergEtl2 {
     static String BASE_PATH = "hdfs://localhost:9000/";
     static String TABLE_NAME = "iceberg-events";
 
@@ -36,10 +36,14 @@ public class IcebergEtl {
             .csv(CSV_PATH);
         data.show();
 
-        data.write()
-            .format("iceberg")
-            .mode("overwrite")
-            .save("default_catalog." + TABLE_NAME);
+
+        String tempUpdate = "icebergupdatetemp";
+        data.createOrReplaceTempView(tempUpdate);
+        spark.sql("MERGE INTO " + "default_catalog." + TABLE_NAME + " old" +
+            "        USING (SELECT * from icebergupdatetemp) new" +
+            "        ON old.uuid = new.uuid" +
+            "        WHEN MATCHED THEN UPDATE SET old.uuid = new.uuid, old.sensorId = new.sensorId,old.eventDescription = new.eventDescription, old.timestamp = new.timestamp" +
+            "        WHEN NOT MATCHED THEN INSERT *");
 
 
         Dataset<Row> load = spark.read()

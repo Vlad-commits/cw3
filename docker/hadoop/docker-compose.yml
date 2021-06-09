@@ -4,6 +4,7 @@ services:
     namenode:
         image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
         container_name: namenode
+        hostname: namenode
         restart: always
         ports:
             - 9870:9870
@@ -18,6 +19,7 @@ services:
     datanode:
         image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
         container_name: datanode
+        hostname: datanode
         restart: always
         volumes:
             - hadoop_datanode:/hadoop/dfs/data
@@ -55,7 +57,153 @@ services:
         env_file:
             - ./hadoop.env
 
+
+    master:
+        image: bde2020/spark-master:2.4.5-hadoop2.7
+        hostname: master
+        container_name: spark_master
+        environment:
+            - INIT_DAEMON_STEP=setup_spark
+        ports:
+            - 4040:4040               # node web UI
+            - 6066:6066               # hidden RESTApi
+            - 7077:7077               # default spark port
+            - 8080:8080               # default spark web UI
+        volumes:
+#            - ./conf/master:/conf
+            - ./build/libs:/opt/javapp
+
+
+    worker1:
+        image: bde2020/spark-worker:2.4.5-hadoop2.7
+        hostname: worker1
+
+        depends_on:
+            - master
+        ports:
+            - "8081:8081"
+        environment:
+            - "SPARK_MASTER=spark://master:7077"
+        volumes:
+            - spark1:/tmp
+
+    worker2:
+        image: bde2020/spark-worker:2.4.5-hadoop2.7
+        hostname: worker2
+
+        depends_on:
+            - master
+        ports:
+            - "8082:8081"
+        environment:
+            - "SPARK_MASTER=spark://master:7077"
+        volumes:
+            - spark2:/tmp
+    worker3:
+        image: bde2020/spark-worker:2.4.5-hadoop2.7
+        hostname: worker3
+
+        depends_on:
+            - master
+        ports:
+            - "8083:8081"
+        environment:
+            - "SPARK_MASTER=spark://master:7077"
+        volumes:
+            - spark3:/tmp
+    worker4:
+        image: bde2020/spark-worker:2.4.5-hadoop2.7
+        hostname: worker3
+
+        depends_on:
+            - master
+        ports:
+            - "8084:8081"
+        environment:
+            - "SPARK_MASTER=spark://master:7077"
+        volumes:
+            - spark4:/tmp
+#    worker5:
+#        image: bde2020/spark-worker:2.4.5-hadoop2.7
+#        hostname: worker5
+#
+#        depends_on:
+#            - master
+#        ports:
+#            - "8085:8081"
+#        environment:
+#            - "SPARK_MASTER=spark://master:7077"
+#    worker6:
+#        image: bde2020/spark-worker:2.4.5-hadoop2.7
+#        hostname: worker6
+#
+#        depends_on:
+#            - master
+#        ports:
+#            - "8086:8081"
+#        environment:
+#            - "SPARK_MASTER=spark://master:7077"
+#    worker7:
+#        image: bde2020/spark-worker:2.4.5-hadoop2.7
+#        hostname: worker7
+#
+#        depends_on:
+#            - master
+#        ports:
+#            - "8087:8081"
+#        environment:
+#            - "SPARK_MASTER=spark://master:7077"
+#    worker8:
+#        image: bde2020/spark-worker:2.4.5-hadoop2.7
+#        hostname: worker8
+#
+#        depends_on:
+#            - master
+#        ports:
+#            - "8088:8081"
+#        environment:
+#            - "SPARK_MASTER=spark://master:7077"
+
 volumes:
     hadoop_namenode:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: /media/vlad/A4B23B80B23B55D0/hnn/
     hadoop_datanode:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: /media/vlad/A4B23B80B23B55D0/hdn/
     hadoop_historyserver:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: /media/vlad/A4B23B80B23B55D0/hhs/
+    spark1:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: /media/vlad/A4B23B80B23B55D0/spark1/
+    spark2:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: /media/vlad/A4B23B80B23B55D0/spark2/
+    spark3:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: /media/vlad/A4B23B80B23B55D0/spark3/
+    spark4:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: /media/vlad/A4B23B80B23B55D0/spark4/
