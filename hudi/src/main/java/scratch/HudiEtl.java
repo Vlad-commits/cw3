@@ -35,12 +35,10 @@ public class HudiEtl {
         //Write
         data.write()
             .format("hudi")
-//            .options(getQuickstartWriteConfigs())
             .option("hoodie.insert.shuffle.parallelism", "1")
             .option("hoodie.upsert.shuffle.parallelism", "1")
             .option("hoodie.clean.automatic", "false")
             .option("hoodie.bulkinsert.sort.mode", BulkInsertSortMode.NONE.toString())
-//            .option(DataSourceWriteOptions.OPERATION_OPT_KEY(),"insert_overwrite")
             .option(DataSourceWriteOptions.PRECOMBINE_FIELD_OPT_KEY(), "timestamp")
             .option(DataSourceWriteOptions.RECORDKEY_FIELD_OPT_KEY(), "uuid")
             .option(DataSourceWriteOptions.PARTITIONPATH_FIELD_OPT_KEY(), "")

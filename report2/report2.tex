@@ -1,0 +1,511 @@
+\documentclass[%
+bachelor,    % тип документа
+%natbib,      % использовать пакет natbib для "сжатия" цитирований
+subf,        % использовать пакет subcaption для вложенной нумерации рисунков
+href,        % использовать пакет hyperref для создания гиперссылок
+colorlinks,  % цветные гиперссылки
+%fixint,     % включить прямые знаки интегралов
+]{disser}
+
+\usepackage[
+a4paper, mag=1000,
+left=2.5cm, right=1cm, top=2cm, bottom=2cm, headsep=0.7cm, footskip=1cm
+]{geometry}
+
+
+\usepackage[intlimits]{amsmath}
+\usepackage{amssymb,amsfonts}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{pgf}
+\usepackage[english,russian]{babel}
+\ifpdf\usepackage{epstopdf}\fi
+\usepackage[autostyle]{csquotes}
+
+% Шрифт Times в тексте как основной
+%\usepackage{tempora}
+% альтернативный пакет из дистрибутива TeX Live
+%\usepackage{cyrtimes}
+
+% Шрифт Times в формулах как основной
+%\usepackage[varg,cmbraces,cmintegrals]{newtxmath}
+% альтернативный пакет
+%\usepackage[subscriptcorrection,nofontinfo]{mtpro2}
+
+\usepackage[%
+style=gost-numeric,
+backend=biber,
+language=auto,
+hyperref=auto,
+autolang=other,
+sorting=none
+]{biblatex}
+
+\addbibresource{report2.bib}
+
+% Плавающие рисунки "в оборку".
+\usepackage{wrapfig}
+
+% Номера страниц снизу и по центру
+%\pagestyle{footcenter}
+%\chapterpagestyle{footcenter}
+
+% Точка с запятой в качестве разделителя между номерами цитирований
+%\setcitestyle{semicolon}
+
+% Точка с запятой в качестве разделителя между номерами цитирований
+%\setcitestyle{semicolon}
+
+% plots fixes
+%\usepackage{graphicx}
+%\usepackage{epstopdf}
+\usepackage{pgfplots}
+%\usepackage{tikz}
+%\usepgfplotslibrary{external} 
+%\usetikzlibrary{external}
+%\tikzexternalize
+
+\usepackage{listings}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+%\definecolor{dkgreen}{rgb}{0,0,0}
+%\definecolor{gray}{rgb}{0,0,0}
+%\definecolor{mauve}{rgb}{0,0,0}
+
+
+\lstset{frame=tb,
+	language=Java,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
+}
+
+
+% Использовать полужирное начертание для векторов
+\let\vec=\mathbf
+
+% Включать подсекции в оглавление
+\setcounter{tocdepth}{2}
+
+\graphicspath{{fig/}}
+
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+
+\usepackage{afterpage}
+\usepackage{amsthm}
+%\usepackage[T1]{fontenc}
+%\usepackage{cmbright}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=false,% make the links colored
+}
+\begin{document}
+	
+	% Переопределение стандартных заголовков
+	%\def\contentsname{Содержание}
+	%\def\conclusionname{Выводы}
+	%\def\bibname{Литература}
+	
+	%
+	% Титульный лист на русском языке
+	%
+	
+	\institution{
+		Санкт-Петербургский государственный университет\\
+		Математико-Механический факультет\\
+		Кафедра прикладной кибернетики\\
+	}
+	
+	
+	\title{Отчёт по производственной практике}
+	\def\topiclabel{}
+	\topic{Cистемы загрузки больших данных}
+	
+	% Автор
+	\author{Мамаев Владислав Викторович}
+	% Группа
+	\group{323}
+	% Номер специальности
+	\coursenum{010400 (01.03.02)}
+	% Название специальности
+	\course{Прикладная математика и информатика}
+	
+	% Научный руководитель
+	
+	\sa      {Благов Михаил Валерьевич}
+	
+	\sastatus{к.~ф.-м.~н.}
+	% Город и год
+	\city{Санкт-Петербург}
+	\date{\number\year}
+	
+	\maketitle
+	
+	%%
+	%% Titlepage in English
+	%%
+	%
+	%\institution{Name of Organization}
+	%
+	%% Approved by
+	%\apname{Professor S.\,S.~Sidorov}
+	%
+	%\title{Bachelor's Thesis}
+	%
+	%% Topic
+	%\topic{Dummy Title}
+	%
+	%% Author
+	%\author{Author's Name} % Full Name
+	%\course{Physics} % Specialization
+	%
+	%\group{} % Study Group
+	%
+	%% Scientific Advisor
+	%\sa       {I.\,I.~Ivanov}
+	%\sastatus {Professor}
+	%
+	%% Reviewer
+	%\rev      {P.\,P.~Petrov}
+	%\revstatus{Associate Professor}
+	%
+	%% Consultant
+	%\con{}
+	%\conspec{}
+	%\constatus{}
+	%
+	%% City & Year
+	%\city{Saint Petersburg}
+	%\date{\number\year}
+	%
+	%\maketitle[en]
+	
+	% Содержание
+	
+	\begin{center}
+		\textbf{Отзыв научного руководителя}
+	\end{center}
+	
+	Тема работы является актуальной. При выполнении работы студент проявил самостоятельность. Работа выполнена на хорошем уровне, отчёт составлен грамотно и достаточно полно отражает результаты работы студента.
+	
+	
+	Производственная практика выполнена полностью и может быть зачтена.
+	
+	В ходе работы студент приобрел следующие компетенции: ПКП-1, ПКП3, УКБ-5.
+	
+	Оценка A
+	\begin{flushright}
+		к.~ф.-м.~н. Благов Михаил Валерьевич
+	\end{flushright}
+	
+	\tableofcontents
+	
+	
+	\section{Введение}
+	%Что такое OLTP и OLAP? Для чего нужны?
+	
+	Базы данных используются повсеместно, при этом системы, для которых они предназначены, можно разделить на 2 класса:\cite{oltp_olap_2}
+	\begin{itemize}
+		\item Online Transaction Processing (OLTP) -- системы обработки транзакций в реальном времени. Такие системы используются для операционной деятельности предприятий.
+		\item Online Analytical Processing (OLAP) -- системы аналитической обработки в реальном времени. К такими системам относятся системы поддержки принятия решений, инструменты business intelligence, системы анализа данных.
+	\end{itemize}
+	
+	% Почему их следует разделять? 
+	OLAP системы содержат информацию из OTLP систем, при обычно OLAP системы обычно функционирует независимо от OLTP систем по следующим причинам:\cite{oltp_olap}
+	\begin{itemize}
+		\item Реляционная схема данных, обычно используемая в OLTP системах, не эффективна для OLAP нагрузки.
+		\item OLAP нагрузка на OLTP систему может вызвать проблемы с производительностью транзакций.
+		\item С увеличением размера хранимых данных, возникают ограничения на используемые технологии и существенно увеличивается стоимость хранения данных в системах не предназначенных только для OLAP.
+		\item Необходимость доступа к данным из разных OLAP систем и возможности ограничения доступа к данным
+	\end{itemize}
+	
+	% Какие проблемы при интеграции?
+	Традиционно, данные попадают в OLAP систему из OLTP системы при помощи Extraction-Transformation-Loading (ETL) программ,
+	запускаемых с некоторой периодичностью. ETL процессы могут занимать достаточно много времени, и это создает задержку появления данных в OLAP системе. 
+	
+	Для того чтобы уменьшить задержку можно вместо периодичных ETL процессов использовать потоковую обработку.
+	Подобная архитектура интеграции данных описана в \cite{streaming_integration} \cite{streaming_integration_2}.
+	%  добавить диаграмму?
+	Каждое изменение данных в OLTP системе записывается в очередь сообщений, а некоторая программа непрерывно читает сообщения и обновляет данные в аналитическом хранилище.
+	Использование непрерывных обновлений уменьшает задержку, но требует специальных инструментов для обеспечения целостности данных --- традиционно используемые хранилища для большого объема данных, такие как Hadoop, работают по принципу write-once и не поддерживают обновлений.
+	
+	\subsection{Постановка задач}
+    Цель работы --- познакомиться с инструментами для работы с большими данными на примере задачи интеграции OLTP и OLAP хранилищ.
+    Задачи:
+	\begin{itemize}
+		\item Cконфигурировать кластер Hadoop и распределённую файловую систему HDFS.
+		\item Cконфигурировать кластер Spark для распределённой обработки данных.
+		\item Cконфигурировать кластер Kafka для распределённой очереди сообщений.				
+		\item Реализовать алгоритм записи csv файла в таблицы для больших данных, используя Apache Hudi и Delta Lake.
+		\item Реализовать алгоритм потоковой записи из Kafka топика в таблицы для больших данных, используя Apache Hudi и Delta Lake.
+		\item Реализовать выполнение некоторых запросов к таблицам для больших данных.		
+		
+	\end{itemize}
+\newpage
+\section{Основная часть}
+\subsection{Описание используемых технологий}
+Apache Spark --- это среда выполнения для обработки больших данных. Он предоставляет программные интерфейсы на Java, Scala, Python и R, а также оптимизированный движок, поддерживающий выполнение задач с произвольным графом исполнения. Он также поддерживает богатый набор инструментов более высокого уровня, включая Spark SQL для SQL и обработки структурированных данных, MLlib для машинного обучения, GraphX для обработки графов и структурированную потоковую передачу для инкрементных вычислений и потоковой обработки.\cite{spark}
+
+
+Delta Lake --- это проект с открытым исходным кодом, который позволяет построить архитектуру Lakehouse на основе озер данных. Delta Lake обеспечивает ACID транзакции, масштабируемую обработку метаданных и унифицирует потоковую и пакетную обработку данных поверх существующих озёр данных, таких как S3, ADLS, GCS и HDFS.\cite{delta}
+
+
+Apache Hudi --- это среда управления данными с открытым исходным кодом, используемая для упрощения потоковой обработки данных и разработки конвейеров данных.\cite{hudi}
+
+Apache Kafka --- это платформа для потоковой передачи событий имеющая три ключевые возможности:\cite{kafka}
+\begin{itemize}
+	\item Публиковать (писать) и подписываться (читать) потоки сообщений, включая непрерывный импорт или экспорт данных из других систем.
+	\item Надёжно хранить потоки сообщений.
+	\item Обрабатывать потоки сообщений по мере их возникновения или ретроспективно.	
+\end{itemize}
+
+\newpage
+\subsection{Реализация}
+На листингах \ref{lst:1} \ref{lst:2} \ref{lst:3} \ref{lst:4} \ref{lst:5} \ref{lst:6} приведены ключевые фрагменты реализации поставленных задач. Полная версия доступна по ссылке \newline \href{https://github.com/Vlad-commits/cw3}{https://github.com/Vlad-commits/cw3}
+
+
+\begin{lstlisting}[caption={Запись из CSV в Hudi таблицу},captionpos=b,label={lst:1},language=Java]
+
+     SparkSession spark = SparkSession.builder()
+            .appName("Hudi ETL")
+            .config("spark.master", "local")
+            .config("spark.executor.memory", "8g")
+            .config("spark.driver.memory", "4g")
+            .config("spark.rdd.compress", "true")
+            .config("spark.driver.maxResultSize", "2g")
+            .config("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+            .config("spark.kryoserializer.buffer.max", "512m")
+            .getOrCreate();
+
+        Dataset<Row> data = spark.read()
+            .option("header", true)
+            .csv(CSV_PATH);
+
+        //Write
+        data.write()
+            .format("hudi")
+            .option("hoodie.insert.shuffle.parallelism", "1")
+            .option("hoodie.upsert.shuffle.parallelism", "1")
+            .option("hoodie.clean.automatic", "false")
+            .option("hoodie.bulkinsert.sort.mode", BulkInsertSortMode.NONE.toString())
+            .option(DataSourceWriteOptions.PRECOMBINE_FIELD_OPT_KEY(), "timestamp")
+            .option(DataSourceWriteOptions.RECORDKEY_FIELD_OPT_KEY(), "uuid")
+            .option(DataSourceWriteOptions.PARTITIONPATH_FIELD_OPT_KEY(), "")
+            .option(HoodieWriteConfig.TABLE_NAME, TABLE_NAME)
+            .mode(Append)
+            .save(HUDI_PATH);
+
+        //Read
+        Dataset<Row> snapshotDf = spark.read().
+            format("hudi").
+            load(HUDI_PATH + "/*/");
+        snapshotDf.show();
+\end{lstlisting}
+\newpage
+\begin{lstlisting}[caption={Запись из Kafka в Hudi таблицу},captionpos=b,label={lst:2},language=Java]
+        SparkSession spark = SparkSession.builder()
+            .appName("Hudi ETL")
+            .config("spark.master", "local")
+            .config("spark.executor.memory", "8g")
+            .config("spark.driver.memory", "4g")
+            .config("spark.rdd.compress", "true")
+            .config("spark.driver.maxResultSize", "2g")
+            .config("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+            .config("spark.kryoserializer.buffer.max", "512m")
+            .getOrCreate();
+
+        StreamingQuery query = spark
+            .readStream()
+            .format("kafka")
+            .option("kafka.bootstrap.servers", "localhost:9092")
+            .option("subscribe", "verytesttopic123")
+            .option("startingOffsets", "latest")
+            .load()
+            .selectExpr("CAST(value AS STRING)")
+
+            .writeStream()
+            .foreachBatch((v1, v2) -> {
+                v1.persist();
+                v1.write()
+                    .format("hudi")
+                    .option("hoodie.bulkinsert.sort.mode", BulkInsertSortMode.NONE.toString())
+                    .option("hoodie.insert.shuffle.parallelism", "1")
+                    .option("hoodie.upsert.shuffle.parallelism", "1")
+                    .option("hoodie.clean.automatic", "false")
+                    .option(DataSourceWriteOptions.PRECOMBINE_FIELD_OPT_KEY(), "timestamp")
+                    .option(DataSourceWriteOptions.RECORDKEY_FIELD_OPT_KEY(), "uuid")
+                    .option(DataSourceWriteOptions.PARTITIONPATH_FIELD_OPT_KEY(), "")
+                    .option(HoodieWriteConfig.TABLE_NAME, TABLE_NAME)
+                    .mode(Append)
+                    .save(HUDI_PATH);
+                v1.unpersist();
+            })
+            .option("checkpointLocation", CHECKPOINT_PATH)
+            .start();
+
+        query.processAllAvailable();
+\end{lstlisting}
+\newpage
+\begin{lstlisting}[caption={Выполнение запросов к Hudi таблице},captionpos=b,label={lst:3},language=Java]	
+        SparkSession spark = SparkSession.builder()
+            .appName("Hudi Query")
+            .config("spark.master", "local")
+            .config("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+            .config("spark.kryoserializer.buffer.max", "256")
+            .getOrCreate();
+
+
+        Dataset<Row> snapshotDf = spark.read().
+            format("hudi").
+            load(HUDI_PATH + "/*/");
+        snapshotDf.createOrReplaceTempView("temp_events");
+
+        spark.sql("select count(1) from  temp_events ").show();
+        spark.sql("select sensorId , count(1) from  temp_events group by sensorId").show();
+        spark.sql("select * from (select temp_events.* , row_number() over (partition by sensorId order by timestamp desc) as rnk from temp_events) where rnk=1").show();
+\end{lstlisting}
+\newpage
+\begin{lstlisting}[caption={Запись из CSV в Delta Lake таблицу},captionpos=b,label={lst:4},language=Java]	
+        SparkSession spark = SparkSession.builder()
+            .appName("Delta Lake ETL")
+            .config("spark.master", "local")
+            .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension")
+            .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")
+            .getOrCreate();
+
+        Dataset<Row> data = spark.read()
+            .option("header", true)
+            .csv(CSV_PATH);
+        data.show();
+
+
+        // Init table
+        DeltaTable deltaTable = DeltaTable.forPath(PATH);
+
+        // Upsert (merge) new data
+
+        deltaTable.as("oldData")
+            .merge(
+                data.as("newData"),
+                "oldData.uuid = newData.uuid")
+            .whenMatched()
+            .update(
+                new HashMap<String, Column>() {{
+                    put("uuid", functions.col("newData.uuid"));
+                    put("sensorId", functions.col("newData.sensorId"));
+                    put("eventDescription", functions.col("newData.eventDescription"));
+                    put("timestamp", functions.col("newData.timestamp"));
+                }})
+            .whenNotMatched()
+            .insert(
+                new HashMap<String, Column>() {{
+                    put("uuid", functions.col("newData.uuid"));
+                    put("sensorId", functions.col("newData.sensorId"));
+                    put("eventDescription", functions.col("newData.eventDescription"));
+                    put("timestamp", functions.col("newData.timestamp"));
+                }})
+            .execute();
+
+        deltaTable.toDF().show();
+
+
+        //Read
+        Dataset<Row> df = spark.read()
+            .format("delta")
+            .load(PATH);
+        df.show();
+\end{lstlisting}
+\newpage
+\begin{lstlisting}[caption={Запись из Kafka в Delta Lake таблицу},captionpos=b,label={lst:5},language=Java]
+        SparkSession spark = SparkSession.builder()
+            .appName("Delta Lake ETL")
+            .config("spark.master", "local")
+            .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension")
+            .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")
+            .getOrCreate();
+
+        DataStreamWriter<Row> writeStream = spark
+            .readStream()
+            .format("kafka")
+            .option("kafka.bootstrap.servers", Utils.getKafkaHosts())
+            .option("subscribe", Utils.getTopic())
+            .option("startingOffsets", "latest")
+            .load()
+            .selectExpr("CAST(value AS STRING)")
+            .writeStream();
+        DeltaTable deltaTable = DeltaTable.forPath(deltaTableName);
+
+        StreamingQuery query = writeStream
+            .option("checkpointLocation", CHECKPOINT_PATH)
+            .foreachBatch(((v1, v2) -> {
+                v1.persist();
+                deltaTable.as("oldData")
+                    .merge(
+                        v1.as("newData"),
+                        "oldData.uuid = newData.uuid")
+                    .whenMatched()
+                    .update(
+                        new HashMap<String, Column>() {{
+                            put("uuid", functions.col("newData.uuid"));
+                            put("sensorId", functions.col("newData.sensorId"));
+                            put("eventDescription", functions.col("newData.eventDescription"));
+                            put("timestamp", functions.col("newData.timestamp"));
+                        }})
+                    .whenNotMatched()
+                    .insert(
+                        new HashMap<String, Column>() {{
+                            put("uuid", functions.col("newData.uuid"));
+                            put("sensorId", functions.col("newData.sensorId"));
+                            put("eventDescription", functions.col("newData.eventDescription"));
+                            put("timestamp", functions.col("newData.timestamp"));
+                        }})
+                    .execute();
+                v1.unpersist();
+            }))
+            .start();
+        query.processAllAvailable();
+\end{lstlisting}
+\newpage
+\begin{lstlisting}[caption={Выполнение запросов к Delta Lake таблице},captionpos=b,label={lst:6},language=Java]	
+        SparkSession spark = SparkSession.builder()
+            .appName("Delta Lake Query")
+            .config("spark.master", "local")
+            .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension")
+            .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")
+            .getOrCreate();
+
+        Dataset<Row> df = spark.read()
+            .format("delta")
+            .load(PATH);
+        df.createOrReplaceTempView("temp_events");
+        spark.sql("select count(1) from  temp_events ").show();
+        spark.sql("select sensorId , count(1) from  temp_events group by sensorId").show();
+        spark.sql("select * from (select temp_events.* , row_number() over (partition by sensorId order by timestamp desc) as rnk from temp_events) where rnk=1").show();
+\end{lstlisting}	
+
+\newpage
+\section{Заключение}
+В рамках работы были успешно реализованы алгоритмы для записи, потоковой записи и чтения для таблиц больших данных на базе Apache Hudi и Delta Lake.
+	% Список литературы
+\printbibliography[heading=bibintoc]
+	
+	% Приложения
+\appendix
+	
+	
+\end{document}

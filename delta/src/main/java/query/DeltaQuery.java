@@ -23,8 +23,8 @@ public class DeltaQuery {
             .load(PATH);
         df.createOrReplaceTempView("temp_events");
         spark.sql("select count(1) from  temp_events ").show();
-//        spark.sql("select sensorId , count(1) from  temp_events group by sensorId").show();
-//        spark.sql("select * from (select temp_events.* , row_number() over (partition by sensorId order by timestamp desc) as rnk from temp_events) where rnk=1").show();
+        spark.sql("select sensorId , count(1) from  temp_events group by sensorId").show();
+        spark.sql("select * from (select temp_events.* , row_number() over (partition by sensorId order by timestamp desc) as rnk from temp_events) where rnk=1").show();
 
     }
 }

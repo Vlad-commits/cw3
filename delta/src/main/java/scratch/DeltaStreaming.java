@@ -6,7 +6,8 @@ import org.apache.spark.sql.streaming.StreamingQuery;
 public class DeltaStreaming {
     static String BASE_PATH = "hdfs://localhost:9000/";
     static String PATH = BASE_PATH + "delta-events";
-
+    static String TOPIC_NAME = "verytesttopic123";
+    static String KAFKA_HOST = "localhost:9092";
     static String CHECKPOINT_PATH = BASE_PATH + "delta-checkpoint";
 
     public static void main(String[] args) {
@@ -17,11 +18,12 @@ public class DeltaStreaming {
             .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")
             .getOrCreate();
 
+
         StreamingQuery query = spark
             .readStream()
             .format("kafka")
-            .option("kafka.bootstrap.servers", "localhost:9092")
-            .option("subscribe", "verytesttopic123")
+            .option("kafka.bootstrap.servers", KAFKA_HOST)
+            .option("subscribe", TOPIC_NAME)
             .option("startingOffsets", "latest")
             .load()
             .selectExpr("CAST(value AS STRING)")
